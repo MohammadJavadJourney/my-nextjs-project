@@ -1,20 +1,26 @@
-import Image from 'next/image';
-import { getServerSession } from 'next-auth'
-import { authOptions } from './api/auth/[...nextauth]/route'
-import { Metadata } from 'next';
+'use client';
 
-export default async function Home() {
-  const session = await getServerSession(authOptions);
-  const userName = session?.user?.name || 'World!';
+import { useState } from "react";
+
+
+
+export default function Home() {
   return (
     <main>
-      <h1>Hello
-        <span className='ml-3'>{userName}</span>
-      </h1>
+      <h1>Hello World!</h1>
+      <button onClick={async () => {
+        const _ = (await import('lodash')).default;
+
+        const users = [
+          {name: 'c'},
+          {name: 'b'},
+          {name: 'a'}
+        ];
+
+        const sorted = _.orderBy(users, ['name']);
+        console.log(sorted);
+      }}>Show</button>
+      
     </main>
   )
-}
-
-export const metadata: Metadata = {
-  title:'...'
 }
