@@ -1,17 +1,20 @@
 import Image from 'next/image';
-import image from '@/public/images/image.jpg';
 import { getServerSession } from 'next-auth'
 import { authOptions } from './api/auth/[...nextauth]/route'
+import { Metadata } from 'next';
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
+  const userName = session?.user?.name || 'World!';
   return (
     <main>
       <h1>Hello
-        {session && <span className='ml-4'>{session.user!.name}</span>}
-        {!session && <span className='ml-4'>World!</span>}
+        <span className='ml-3'>{userName}</span>
       </h1>
-      <Image src='image' alt='coffee' />
     </main>
   )
+}
+
+export const metadata: Metadata = {
+  title:'...'
 }
